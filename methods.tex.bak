@@ -1,0 +1,40 @@
+Figure~\ref{semipar} provides an overview of our semi-parametric clustering approach that consists of parametric abstraction step using CT-DBNs paired with nonparametric Bayesian clustering, which is not limited by the requirement to fix the number of clusters, $k$, in advance.
+
+\subsection{Abstraction}
+DBNs require that continuous time is represented as a series of uniform  length units equal to the smallest time granularity in any observed sequence. When data is missing or otherwise incomplete, information is still propagated throughout the
+model for every time step. It has been shown that when data is not missing at random,
+which often the case in clinical data, it can result in significantly more EM steps to learn
+the model parameters, and more importantly, lead to erroneous findings.
+
+CT-DBNs avoid this limitation by enabling a more natural temporal representation that is more appropriate for modelling dynamic changes that progress at different rates, and non-liner time~\cite{Nodelman02}. The specific instance of CT-DBNs we use to abstraction patient time series are based on multi-state Markov models (MSMs)~\cite{Jackson10}.
+
+MSMs are the most common models used for modeling longitudinal failure time data.  Although their initial development in biostatistics was independent of work in CT-DBNs in computer science, they have a shared foundation in stochastic process theory.  We can view MSMs as a instance of CT-DBNs designed specifically for describing the probabilistic transitions patients with chronic diseases may traverse as their disease progresses, including healthy, diseased, and diseased with complications.  In the case of survival analysis, a final absorbing state that has no outbound transitions is used to death.
+
+Similar to a dynamic Bayesian network, arrows represent the allowable transition between model states, which are quantified by an \emph{instantaneous risk}, or transition intensities.
+
+MSMs can be viewed as a domain specific instance of the larger class, where the semantics of the model structure has an interpretation that is rooted in epidemiology and biostatistics.  The models share the same mathematical foundations rooted in homogenous time stochastic processes, but have evolved separately from the theoretical and applied work in computer science on CT-BNs.
+
+\subsubsection{Model Description}
+
+Papers must not exceed eight (8) pages, including all figures, tables,
+and appendices, but excluding references. When references are included,
+the paper must not exceed nine (9) pages. Any submission that exceeds
+this page limit or that diverges significantly from the format specified
+herein will be rejected without review.
+
+
+\subsubsection{Model Estimation}
+
+
+\subsection{Nonparametric Bayesian Clustering}
+
+\subsection{Software}
+
+We strongly encourage the publication of software and data with the
+camera-ready version of the paper whenever appropriate.  This can be
+done by including a URL in the camera-ready copy.  However, do not
+include URLs that reveal your institution or identity in your
+submission for review.  Instead, provide an anonymous URL or upload
+the material as ``Supplementary Material'' into the CMT reviewing
+system.  Note that reviewers are not required to look a this material
+when writing their review.

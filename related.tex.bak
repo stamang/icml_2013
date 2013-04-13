@@ -1,0 +1,15 @@
+
+%semi-parametric framework
+Generative probabilistic frameworks for abstracting time series for standard multi-variate techniques have been broadly described~\cite{Cadez00ageneral}, and are motivated by the limitations of distance functions to approximate the different of amounts of temporal available for comparing observations in complex problems.  Semi-parametric clustering can be viewed as an specification of this category that used the language of probabilistic graphical models to embed parametric assumptions about time and the relationships among variables to represent the underlying dynamical systems being studied.  Most applications pair Markovian models, or their variants, with spectral clustering, and recent applications to motion capture data~\cite{JebSonTha07a} show performance comparable to that of supervised learning.
+
+The family of PGMs known as dynamic Bayesian networks (DBN), extend Bayesian networks for temporal modeling.  Although they provide flexibility and expressive power for modeling many types of temporal phenomena, they require that time is expressed at the smallest granularity that exist between any two contiguous observations.
+
+
+%timeseries using PGMs for abstraction
+The application of probabilistic machine learning applications based on high and medium frequency physiological signals collected in the critical care environment have demonstrated prognostic relevance~\cite{Fox09,Saria09,Marlin12}. Work by Saria et al. describes an approach to discover dynamical features from time series using a Bayesian non-parametric framework to capture higher-level concepts related to infant mortality, extending topic modeling to the clinical setting.  In a time series topic model "words" represent contiguous sequences, and are used to capture higher-level concepts related to infant mortality.
+
+Work by Marlin et al.
+
+ However, chronic disease progression can take weeks, months or years to manifest, and not all relevant patient data may be contained in a hospital's database, requiring a different approach to modeling uncertainly in the underlying disease generating process.
+
+Lastly, Nodleman et al. first extended the language of dynamic Bayesian networks (DBNs) to the continuous time (CT) setting.  Extensive studies were performed on a variety of use cases.  Notably, what can be viewed as an instance of CT-DBNs independently arose in the biostatistics literature with a similar grounding in stochastic process theory.  Multi-state Markov models, have been widely applied for modeling disease dynamics.  Although their semantics have a solid foundation in epidemiology, they are almost exclusively used for survival analysis and derive one model intended to provide population level insights. 

@@ -1,0 +1,63 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2013 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+
+% For figures
+\usepackage{graphicx} % more modern
+\usepackage{subfigure}
+\usepackage{natbib}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{hyperref}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+\usepackage{icml2013}
+
+\icmltitlerunning{Submission and Formatting Instructions for ICML 2013}
+
+\begin{document}
+
+\twocolumn[
+\icmltitle{Extending Semiparametric Clustering Methods for\\Modeling Patient Disease Dynamics}
+
+\icmlauthor{Suzanne Tamang}{suzanne.tamang@gmail.com}
+\icmladdress{Graduate Center City University of New York,
+            314159 Pi St., Palo Alto, CA 94306 USA}
+\icmlauthor{Your CoAuthor's Name}{email@coauthordomain.edu}
+\icmladdress{Their Fantastic Institute,
+            27182 Exp St., Toronto, ON M6H 2T1 CANADA}
+\icmlkeywords{temporal clustering, clinical data, continuous time dynamic Bayesian networks, nonparametric Bayesian methods}
+
+\vskip 0.3in
+]
+
+\input{abstract}
+\section{Motivation}
+\label{intro}
+\input{motivation}
+
+\section{Preliminaries}
+\input{prelims}
+
+\section{Related Work}
+\input{related}
+
+\section{Semiparmetric Clustering}
+\input{methods}
+
+\section{Experiments and results}
+\input{data}
+\input{expts}
+
+\section{Clinical Relevance}
+\input{clinical}
+
+\section{Conclusions and Future Work}
+\input{conclusions}
+
+\bibliography{example_paper}
+\bibliographystyle{icml2013}
+
+\end{document}
+

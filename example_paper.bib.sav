@@ -1,0 +1,100 @@
+
+
+@inproceedings{Marlin12,
+ author = {Marlin, Benjamin M. and Kale, David C. and Khemani, Robinder G. and Wetzel, Randall C.},
+ title = {Unsupervised pattern discovery in electronic health care data using probabilistic clustering models},
+ booktitle = {Proceedings of the 2nd ACM SIGHIT International Health Informatics Symposium},
+ series = {IHI '12},
+ year = {2012},
+ location = {Miami, Florida, USA},
+ pages = {389--398},
+}
+
+@INPROCEEDINGS{Saria07,
+    author = {Suchi Saria and Uri Nodelman and Daphne Koller},
+    title = {Reasoning at the right time granularity},
+    booktitle = {In UAI},
+    year = {2007},
+}
+
+@INPROCEEDINGS{Saria09,
+    author = {Suchi Saria and Daphne Koller and Anna Penn},
+    title = {Learning individual and population level traits from clinical temporal data},
+    booktitle = {In NIPS, Predictive Models in Personalized Medicine workshop},
+    year = {2010},
+}
+
+@INPROCEEDINGS{Fox09,
+    author = {Emily B. Fox and Erik B. Sudderth and Michael I. Jordan and Alan S. Willsky},
+    booktitle = {In NIPS},
+    title = {Sharing Features among Dynamical Systems with Beta Processes},
+    year = {2009},
+}
+
+@article{scikit-learn,
+ title={Scikit-learn: Machine Learning in {P}ython},
+ author={Pedregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V.
+         and Thirion, B. and Grisel, O. and Blondel, M. and Prettenhofer, P.
+         and Weiss, R. and Dubourg, V. and Vanderplas, J. and Passos, A. and
+         Cournapeau, D. and Brucher, M. and Perrot, M. and Duchesnay, E.},
+ journal={Journal of Machine Learning Research},
+ volume={12},
+ pages={2825--2830},
+ year={2011}
+}
+
+@article{Jackson2010,
+  author =	"Christopher Jackson",
+  title =	"Multi-State Models for Panel Data: The msm Package for R",
+  journal =	"Journal of Statistical Software",
+  volume =	"38",
+  number =	"8",
+  pages =	"1--28",
+  day =  	"4",
+  month =	"1",
+  year = 	"2011",
+  CODEN =	"JSSOBK",
+  ISSN = 	"1548-7660",
+  bibdate =	"2010-08-18",
+  URL =  	"http://www.jstatsoft.org/v38/i08",
+  accepted =	"2010-08-18",
+  acknowledgement = "",
+  keywords =	"",
+  submitted =	"2009-07-21",
+}
+
+@inproceedings{Nodelman02,
+ author = {Nodelman, Uri and Shelton, Christian R. and Koller, Daphne},
+ title = {Learning continuous time bayesian networks},
+ booktitle = {Proceedings of the Nineteenth conference on Uncertainty in Artificial Intelligence},
+ series = {UAI'03},
+ year = {2003},
+ isbn = {0-127-05664-5},
+ location = {Acapulco, Mexico},
+ pages = {451--458},
+ numpages = {8},
+ url = {http://dl.acm.org/citation.cfm?id=2100584.2100639},
+ acmid = {2100639},
+ publisher = {Morgan Kaufmann Publishers Inc.},
+ address = {San Francisco, CA, USA},
+}
+
+@INPROCEEDINGS{Cadez00ageneral,
+    author = {Igor Cadez and Scott Gaffney and Padhraic Smyth},
+    title = {A General Probabilistic Framework for Clustering Individuals},
+    booktitle = {In Proceedings of the sixth ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+    year = {2000},
+    pages = {140--149}
+}
+
+@InProceedings{JebSonTha07a,
+    author = "Jebara, T. and Song, Y. and Thadani, K.",
+    title = "Spectral Clustering and Embedding with Hidden Markov Models",
+    booktitle = "European Conference on Machine Learning",
+    year = "2007"}
+
+@misc{anonymous,
+  title= {Suppressed for Anonymity},
+  author= {Author, N. N.},
+  year= {2011},
+}

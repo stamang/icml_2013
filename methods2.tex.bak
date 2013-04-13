@@ -1,0 +1,122 @@
+Regardless of the temporal mining task, the first step of an algorithm is to transform,
+or abstract, the raw data into a more concise representation, preserving as much of the
+information contained in the original sequence as possible.
+
+\subsection{Continuous Time (CT) Model Abstraction}
+As mentioned above, Markov models and DBNs require that continuous time is represented as a series of uniform length units equal to the smallest time granularity in any observed sequence. When data is missing or otherwise incomplete, information is still propagated throughout the model for every time step. It has been shown that when data is not missing at random, which often the case in clinical data, it can result in significantly more EM steps to learn the model parameters, and more importantly, lead to biased findings~\cite{YehCS12}.
+
+CT Markov models avoid this limitation by enabling a more natural temporal representation for modelling dynamic changes that progress at different rates, and in non-liner time. A main distinguishing characteristic between DT and CT Markov models is that in the discrete-time case, the Markov process stays in a state $i$ for a time distributed according to $F_{i}(t)$ and in the continuous-time case the holding time is \emph{exponentially} distributed according to $F_{i}(t) = e^{q_{i}t}$ where $q_{i}$ is the intensity of the transitions, or the tendency to change state.
+
+\subsubsection{Model Description}
+%The specific class of CT Markov models we use for temporal abstraction are based on MSMs are discussed in more detail in Section~\ref{prelims}.  MSMs applications model disease dynamics at the population level, and can provide information about the influence of a model variable to make predictions about a patients disease related risk.  However, the increased availability of temporal data allows us to extend these models for creating patient specific instead of a population level models, that can be used to make clinical comparisons at the individual and the group level.
+
+The specific class of CT Markov models we use for temporal abstraction are adapted from multi-state models (MSMs), which are described in more detail in Section~\ref{prelims}.  These models have been used in epidemiology and biostatistics for modeling population level dynamics for longitudinal data with missing values.  We employ them for modeling patient level dynamics.
+
+A 4 state MSM is shown in Figure \ref{fig:msm}, with states ordered by severity.  The intensity matrix $Q$ represents the instantaneous behavior of the process $X$.  At a time $t$ a patient is in the $S(t)$ state.  For each pair of states, where $z(t)$ is a model variable, the set of transition intensities $q_{r,s}(t,z(t))$ is dependent on $t$ and the instantaneous risk of transitioning from state $r$ to state $s$
+
+$$q_{r,s}(t,z(t)) =  \lim_{\delta t \to +0} P(S(t+\delta t ) = s | S(t) = r) / \delta t $$
+
+%Similar to the extension of Markov models for latent variables, an additional emission matrix is required for the model definition, with matrix entries indicating the probability of each of the $m$ observations conditioned on each model state.
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,semithick]
+\tikzstyle{every state}=[fill=blue!8,draw=black,thick,text=black,scale=1]
+
+
+\node[state]         (A)              {$q_{1}$};
+\node[state]         (B) [right of=A] {$q_{2}$};
+\node[state]         (C) [below of=A] {$q_{3}$};
+\node[state]         (D) [below of=B] {$q_{4}$};
+
+
+\path (A.10) edge  [right] node[right] {} (B.170);
+\path (A.260) edge  [right] node[below] {} (C.100);
+\path (A.320) edge  [right] node[below] {} (D.120);
+\path (B.190) edge  [right] node[left] {} (A.350);
+\path (B.215) edge  [right] node[below] {} (C.55);
+\path (B.260) edge  [right] node[below] {} (D.100);
+\path (C.40) edge  [right] node[above] {} (B.230);
+\path (C.80) edge  [right] node[above] {} (A.280);
+\path (C.10) edge  [right] node[right] {} (D.170);
+\path (D.190) edge  [right] node[left] {} (C.350);
+\path (D.135) edge  [right] node[above] {} (A.305);
+\path (D.80) edge  [right] node[above] {} (B.280);
+\end{tikzpicture}
+\[
+Q_X =
+  \begin{bmatrix}
+    -q_{1,1} & q_{1,2} & q_{1,3} & q_{1,4}\\
+    q_{2,1} & -q_{2,2} & q_{2,3} & q_{2,4}\\
+    q_{3,1} & q_{3,2} & -q_{3,3} & q_{3,4}\\
+    q_{4,1} & q_{4,2} & q_{4,3} & -q_{4,4}\\
+  \end{bmatrix}
+\]
+\end{center}
+\caption{Multi-state Markov model with four discrete states that correspond with disease severity or risk, and the intensity matrix Q}
+\label{fig:msm}
+\end{figure}
+
+ In contrast to a discrete-time transition matrix, $X$ with a domain of of ${x_1,x_2,...,x_n}$, where $n$ is the number of states, the intuition is that the intensity, $q_{i}$, no longer corresponds with the transition probability that is constant for the length of a time slice, but rather an `\emph{instantaneous probability}' of leaving state $x_i$ and the intensity of $q_{i,j}$ gives the `instantaneous probability' of transitioning from $x_i$ to $x_j$.
+
+In a CT Markov model the rows in the matrix $Q$ sum to zero instead of one, with the sum of all transition intensities $q_{r,s}$ in the $r$th row, where $s\neq r$, equal to the absolute value of  $q_{r,r}$
+
+$$q_{r,r} = -\sum_{s\neq r} q_{r,s}$$
+
+\noindent and the probability of observing $s$ immediately after state $r$ is $q_{r,s}/q_{r,r}$.
+
+\subsubsection{Model Estimation and Parameter Learning}
+Ideally, expert knowledge is available to determine the number of disease states and define the initial probabilities for the matrices.  In the case where the number of states and unknown, a nonparametric density estimation technique can be used to discover the model states.
+
+When number of states is not available, we use a Dirichlet process mixture model for nonparametric density estimation.  To obtain initial values for the intensity matrix a naive estimation was provided by counting
+the total number of transition pairs, and estimating their probability of occurrence. Although not
+all patient's models can be learned by our method, this crude estimate consistently allowed more observations to converge using the our parameter estimation methods than the same naive initialization assumption at the population level.
+
+For discrete models, the Expectation-Maximization algorithm~\cite{Dempster77} is used to estimate the model parameters using a forward-backward method, and extensions exist for the continuous-time setting.  To learn the model parameters in our work we use the BFGS quasi-Newton optimization algorithm.
+
+\subsection{Nonparametric Bayesian Clustering}
+A main challenge posed by many traditional clustering algorithms is selecting the number of groups, $k$.   Some approaches uses to estimate $k$ are based on the spectral gap, or predictive estimates.  However, these are heuristics, and don't guarantee the choice of $k$, and more importantly, for many clustering problems $k$ is unrealistic to assume that $k$ is fixed.
+
+By defining the clustering problem as identifying the components of infinite mixture, where $k$ is random variable in the model,  nonparametric Bayesian approaches allow for the definition of more flexible clustering models.  Relative to other nonparametric clustering methods such as spectral clustering, they do not require that $k$ is expressed a priori.  Also, nonparametric Bayesian cluttering provides a generative model that can describe group structure at the population and subpopulations level, more easily lending itself to interpretation by a domain expert.
+
+%\subsubsection{Mixture Models}
+%Nonparametric Bayesian methods can be used to identify the number of component, and their densities, in a finite mixture model.
+The density function of a finite mixture model is defined as:
+
+$$p(x) = \displaystyle\sum\limits_{k=1}^K \pi_k p(x|\theta_k)$$
+
+where $x$ is the data set, $\pi$ is the mixing proportion, and $\theta_k$ are the model parameters for the cluster $k$.
+
+In the nonparametric Bayesian application setting, we define the mixture model as that of one with \emph{infinite components}.  We can define the discrete case in the form of the integral $p(x) = \int p(x|\theta)G(\theta)d\theta$, where $G = \Sigma_{k=1}^K \pi_k \delta_{\theta_k}$~\cite{OrbanzT10}, which extends to the following in the case of infinite components for a Bayesian non-parametric models with a potentially infinite value of $k$.
+
+  $$G = \displaystyle\sum_{k=1}^\infty \pi_k \delta_{\theta_k}$$
+
+%\subsubsection{Dirichlet Distribution}
+%A \emph{Dirichlet distribution}, Dir$(\alpha)$, is the conjugate prior of the categorical distribution and multinomial distribution.   In terms of a finite mixture model with $k$ components, it is a $k$-dimensional generalization of the beta distribution.  Since we can view model components as groups in the data, it has natural extensions for clustering.
+
+%Specifically, if a population can be described by the probability distribution $\Theta$ with components $\theta_{1},...,\theta_{k}$ that sum to 1, we can reasonably infer
+%$$\Theta \sim \text{Dir}\{\alpha_{1},...,\alpha_{k}\}$$
+
+%The probability density function for a Dirichlet distribution uses a normalization factor that is defined in terms of the \emph{multinomial beta function}, $B(\alpha)$,  that is expressed in terms of the gamma function:
+
+%  $$B(\alpha)= \frac{\prod_{i=1}^{k} \Gamma(\alpha_{i})} {\Gamma(\sum_{i=1}^{k} \alpha_{i})}$$
+
+%\noindent and the probabilities $p$ and parameters $\alpha$ of each of the $k$ components are~\cite{Ferguson1973}:
+
+%$$\text{Dir}(p;\alpha)=\frac{1}{B(\alpha)}\prod_{i=1}^{k} p_{i}^{\alpha_{i}-1}$$
+
+
+\subsubsection{Dirichlet Process Mixture Models}
+One approach to nonparametric Bayesian clustering is \emph{Dirichlet process Gaussian mixture modeling} (DPGMM). A Dirichlet process (DP) is the prior over the mixing distribution, $G$, and defines a measure on measures. It is characterized by two parameters: a base distribution $G_0$, from which samples are drawn, and is the parameter on which the nonparametric distribution is centered.  The second is a positive scaling parameter $\alpha$.  More intuitively described as a `splitting' criteria, $\alpha$ is a scaling factor that is associated with the probability of forming a new cluster.  The base distribution is defined by $G_0$.
+
+$$G \sim DP(G_0,\alpha)$$
+
+For a sample, $G$, drawn from the base distribution $G_0$, if $G \sim DP(G_0,\alpha)$ then for any set of partitions $A_1 \cup A_2 \cup ... A_k$ of $A$:
+$$(G(A_1),...,G(A_k)) \sim Dir(\alpha G_0(A_1),...,\alpha G_0(A_k))$$
+
+In the the Dirichlet process mixture model (DPMM), the DP is used as nonparametric prior in a hierarchical Bayesian model, where $G$ is portioned according to the prior. DPMMs were first applied for density estimation, but is now applied widely for clustering.
+
+Dirichlet Process Gaussian Mixture Modeling (DPGMM) defines a  DPMM by taking the limit of the number of mixture components, $k$ as a hierarchical Gaussian mixture model approaches infinity.  Two methods used to specify the priors are Markov chain Monte-Carlo (MCMC) and variational inference, the later of which is described in the literature~\cite{Blei04} and implemented for out clustering step.
+
+\subsection{Software}
+ We use two open source packages, and adapted functions to our specific needs.  Python's sci-kit learn~\cite{scikit} provides an implementation for Dirichlet process Gaussian mixture modeling.  For temporal abstraction we modified the MSM package~\cite{Jackson10} to learn continuous-time Markov models for individuals.  Although we cannot make our data sets available to the public, we plan to release our implementation code and a example that calls the Python code from R, and uses R's ggplot2~\cite{ggplot2} plotting library to create some of the visualizations be show visualizing clustering results.

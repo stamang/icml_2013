@@ -1,0 +1,27 @@
+
+Temporal data can provide critical contextual information
+to discover new knowledge relevant to health and wellness.
+However, the accumulation of patient data has outpaced the
+generation of effective methods for temporal analysis. Although there is extensive work on approaches for modeling
+patients in environments such as the ICU, these do not easily
+translate to long durations, such as months or years. To this
+end, we demonstrate a clustering method for the exploratory
+analysis of longitudinal patient data that easily extends to
+new data sets, and in contrast to discrete time approaches, is
+more appropriate for modeling incomplete, irregular observation sequences that are common to patient data found in
+electronic health records.
+
+\subsection{Temporal Clustering}
+Clustering is a pervasive and natural human activity that is used for a variety of tasks. Typically, we use it to group similar objects together so that we can assign characteristics that are useful for their definition.  It's important to note that agreement among experts on the `correct' assignment of items can produce controversy.  For example, there have been extreme departures in the biological sciences attributed to defining the membership of some organisms that cannot be definitively resolved.
+
+Computational clustering algorithms aim to divide data into clusters that are meaningful or useful, and improving existing techniques has been the focus of considerable research in machine learning.  At the minimal level, automated clustering can be viewed as a preprocessing methods with the goal of improving the performance of a system or as an exploratory analysis technique that informs more targeted hypotheses. For example, in a collection of patients with a chronic disease that progresses to lethal stages in only a small fraction, clustering may help reveal what patient characteristics can help determine those of high or low risk. A consequent processing step or follow-up study could then focus on patients of the same risk type.
+
+%temporal clustering
+Temporal information provide critical context for diagnosis, prognosis and disease management, especially in the case of chronic conditions that can evolve at different rates among patients, and persist for years.   Although clinically significant work applying exploratory techniques for patient and population level disease modeling exists~\cite{Marlin12,Saria07}, it is for the most part limited to the critical care environment and does not easily translate to a low frequency clinical setting, where the sampling scheme is unclear, and data is sparse data and collected for longer durations, such as weeks, months or years. To provide insight into the the dynamics of chronic disease, and EHR data that are arbitrarily sampled, variable in durations, and incomplete, this work extends applications of semiparametric clustering for the temporal mining.
+
+In the \emph{semi-parametric clustering framework}, a parametric model of the underlying dynamic process provides useful assumptions for abstracting temporal measurement, and is paired with a nonparametric method used to cluster the abstractions~\cite{JebSonTha07a}.  Dynamic Bayesian networks, the temporal extension to Bayesian nets (BNs), provide an expressive language for defining the semantic of a graphical model and provide a principled way to abstract whole time series.  The family of hidden Markov models (HMMs) and their variants are popular abstraction models.
+
+A BN consists of nodes that represent entities or concepts, edges indicating a relation and direction of influence, and an associated probability structure to reflect uncertainly.  DBNs discretize the temporal trajectory into uniform length contiguous segments, that are assumed to be approximately Markovian to enable tractable inference.  The smallest temporal granularity among all sequences, $\delta t_{min}$, is used to represent the flow of time as a series of additive values for the length of the entire temporal trajectory, which repeats the template BN for each time slice.
+Although discrete-time models are suitable in many cases, there are two key limitations that have been noted and are directly relevant to the type of data typically found in provider databases. First, if the underlying health related phenomena that is being modeled progresses in individuals at different rates, the smallest granularity must be used to express time steps for the entire system. Second, when data is unavailable, intervening time slices must still be represented~\cite{Nodelman02,SariaNK07}.
+
+
