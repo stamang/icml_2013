@@ -1,5 +1,7 @@
-icml 2013 paper as submitted on 4/12/2013
+Semiparametric Clustering Methods for Modeling Chronic Disease Dynamics
 =========
+Submitted on 4/12/2013
+
 The availability of clinical data repositories presents new opportunities for improving 
 health care quality and reducing costs.  However, the secondary function of these data 
 sources as research tools presents challenges for longitudinal data analysis. Rather
